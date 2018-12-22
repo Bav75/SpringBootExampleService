@@ -1,10 +1,13 @@
 package microservices.multiplication.domain;
 
-public class Multiplication {
+import lombok.EqualsAndHashCode;
+
+@EqualsAndHashCode
+public final class Multiplication {
 	
 	// Factors for multiplication
-	private int factorA;
-	private int factorB;
+	private final int factorA;
+	private final int factorB;
 	
 	// The result of the operation A * B 
 	private int result;

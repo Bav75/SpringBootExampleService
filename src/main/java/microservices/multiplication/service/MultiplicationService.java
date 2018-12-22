@@ -1,6 +1,7 @@
 package microservices.multiplication.service;
 
 import microservices.multiplication.domain.Multiplication;
+import microservices.multiplication.domain.MultiplicationResultAttempt;
 
 public interface MultiplicationService {
 	
@@ -12,5 +13,7 @@ public interface MultiplicationService {
 	 */
 
 	public Multiplication createRandomMultiplication();
+	
+	public boolean checkAttempt(final MultiplicationResultAttempt resultAttempt);
 	
 }
