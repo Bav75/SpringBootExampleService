@@ -14,6 +14,7 @@ public final class MultiplicationResultAttempt {
 		this.user = user;
 		this.multiplication = multiplication;
 		this.resultAttempt = resultAttempt;
+		
 	}
 	
 	// Empty constructor 

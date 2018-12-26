@@ -1,7 +1,9 @@
 package microservices.multiplication.domain;
 
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
+@ToString
 @EqualsAndHashCode
 public final class User {
 	

@@ -48,7 +48,7 @@ public class MultiplicationControllerTest {
 		MockHttpServletResponse response = mvc
 				.perform(get("/multiplications/random").accept(MediaType.APPLICATION_JSON)).andReturn().getResponse();
 
-		// assert
+		// then
 		assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
 		assertThat(response.getContentAsString()).isEqualTo(json.write(new Multiplication(70, 20)).getJson());
 	}
