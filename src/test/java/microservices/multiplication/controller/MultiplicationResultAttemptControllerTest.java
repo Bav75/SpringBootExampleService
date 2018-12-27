@@ -39,7 +39,7 @@ public class MultiplicationResultAttemptControllerTest {
 	private MockMvc mvc;
 	
 	private JacksonTester<MultiplicationResultAttempt> jsonResult;
-	private JacksonTester<ResultResponse> jsonResponse;
+	//private JacksonTester<ResultResponse> jsonResponse;
 	
 	@Before
 	public void setUp() {
@@ -66,7 +66,7 @@ public class MultiplicationResultAttemptControllerTest {
 		
 		User user = new User("brian");
 		Multiplication multiplication = new Multiplication(50, 70);
-		MultiplicationResultAttempt attempt = new MultiplicationResultAttempt(user, multiplication, 3500);
+		MultiplicationResultAttempt attempt = new MultiplicationResultAttempt(user, multiplication, 3500, correct);
 		
 		
 		// when
@@ -76,16 +76,14 @@ public class MultiplicationResultAttemptControllerTest {
 				content(jsonResult.write(attempt).
 						getJson())).andReturn().getResponse();
 		
-		// my mvc is continuing to return false - why is this? 
-		
-		System.out.println("MVC Result " + response.getContentAsString());
-		System.out.println("Result Response " + jsonResponse.write(new ResultResponse(correct)).getJson());
 		
 		// then
 		assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
 		assertThat(response.getContentAsString()).isEqualTo(
-				jsonResponse.write(new
-						ResultResponse(correct)).getJson());
+				jsonResult.write(
+						new MultiplicationResultAttempt(
+								attempt.getUser(), attempt.getMultiplication(), 
+								attempt.getResultAttempt(), correct)).getJson());
 		
 	}
 	

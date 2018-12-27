@@ -1,11 +1,8 @@
 package microservices.multiplication.service;
 
-import org.springframework.stereotype.Service;
-
 import microservices.multiplication.domain.Multiplication;
 import microservices.multiplication.domain.MultiplicationResultAttempt;
 
-//@Service
 public interface MultiplicationService {
 	
 	/**

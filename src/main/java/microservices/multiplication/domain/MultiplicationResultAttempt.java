@@ -14,6 +14,7 @@ public final class MultiplicationResultAttempt {
 	private final User user;
 	private final Multiplication multiplication;
 	private final int resultAttempt; 
+	private final boolean correct;
 	
 	
 	// Empty constructor 
@@ -21,6 +22,7 @@ public final class MultiplicationResultAttempt {
 		user = null;
 		multiplication = null;
 		resultAttempt = -1;
+		correct = false;
 	}
 	
 	/*
