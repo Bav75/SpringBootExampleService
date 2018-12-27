@@ -1,17 +1,30 @@
 package microservices.multiplication.domain;
 
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 @EqualsAndHashCode
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 public final class Multiplication {
 	
 	// Factors for multiplication
 	private final int factorA;
 	private final int factorB;
+	//private final int result;
+		
 	
-	// The result of the operation A * B 
-	private int result;
+	public Multiplication() {
+		this(0, 0);
+	}
 	
+	
+	/*
 	public Multiplication(int factorA, int factorB) {
 		this.factorA = factorA;
 		this.factorB = factorB;
@@ -38,10 +51,10 @@ public final class Multiplication {
 				"factorA=" + factorA +
 				", factorB=" + factorB + 
 				", result(A*B)=" + result + 
-				"}";
+				'}';
 	}
 
-	
+	*/
 	
 	
 }

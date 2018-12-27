@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import microservices.multiplication.domain.Multiplication;
 import microservices.multiplication.domain.MultiplicationResultAttempt;
 
-@Service
+//@Service
 public interface MultiplicationService {
 	
 	/**

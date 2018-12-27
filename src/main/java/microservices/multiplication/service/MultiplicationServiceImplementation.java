@@ -20,6 +20,7 @@ public class MultiplicationServiceImplementation implements MultiplicationServic
 	public Multiplication createRandomMultiplication() {
 		int factorA = randomGeneratorService.generateRandomFactor();
 		int factorB = randomGeneratorService.generateRandomFactor();
+		// int result = factorA * factorB;
 		return new Multiplication(factorA, factorB);
 	}
 	

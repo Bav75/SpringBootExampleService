@@ -1,7 +1,13 @@
 package microservices.multiplication.domain;
 
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 
+@RequiredArgsConstructor
+@Getter
+@ToString
 @EqualsAndHashCode
 public final class MultiplicationResultAttempt {
 	
@@ -10,6 +16,14 @@ public final class MultiplicationResultAttempt {
 	private final int resultAttempt; 
 	
 	
+	// Empty constructor 
+	public MultiplicationResultAttempt() {
+		user = null;
+		multiplication = null;
+		resultAttempt = -1;
+	}
+	
+	/*
 	public MultiplicationResultAttempt(User user, Multiplication multiplication, int resultAttempt) {
 		this.user = user;
 		this.multiplication = multiplication;
@@ -17,12 +31,7 @@ public final class MultiplicationResultAttempt {
 		
 	}
 	
-	// Empty constructor 
-	public MultiplicationResultAttempt() {
-		user = null;
-		multiplication = null;
-		resultAttempt = -1;
-	}
+
 
 	public User getUser() {
 		return user;
@@ -36,6 +45,6 @@ public final class MultiplicationResultAttempt {
 		return resultAttempt;
 	}
 	
-	
+	*/
 
 }
