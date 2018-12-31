@@ -12,6 +12,8 @@ import org.springframework.util.Assert;
 import microservices.multiplication.domain.Multiplication;
 import microservices.multiplication.domain.MultiplicationResultAttempt;
 import microservices.multiplication.domain.User;
+import microservices.multiplication.event.EventDispatcher;
+import microservices.multiplication.event.MultiplicationSolvedEvent;
 import microservices.multiplication.repository.MultiplicationResultAttemptRepository;
 import microservices.multiplication.repository.UserRepository;
 
@@ -21,14 +23,17 @@ public class MultiplicationServiceImplementation implements MultiplicationServic
 	private RandomGeneratorService randomGeneratorService;
 	private MultiplicationResultAttemptRepository attemptRepository;
 	private UserRepository userRepository;  
+	private EventDispatcher eventDispatcher;
 	//private MultiplicationRepository multiplicationRepository; 
 	
 	@Autowired
 	public MultiplicationServiceImplementation(final RandomGeneratorService randomGeneratorService,
-			final MultiplicationResultAttemptRepository attemptRepository, final UserRepository userRepository) {
+			final MultiplicationResultAttemptRepository attemptRepository, final UserRepository userRepository,
+			final EventDispatcher eventDispatcher) {
 		this.randomGeneratorService = randomGeneratorService;
 		this.attemptRepository = attemptRepository;
 		this.userRepository = userRepository;
+		this.eventDispatcher = eventDispatcher;
 		//this.multiplicationRepository = multiplicationRepository;
 	}
 	
@@ -68,11 +73,6 @@ public class MultiplicationServiceImplementation implements MultiplicationServic
 		
 	}
 	
-	@Override
-	public List<MultiplicationResultAttempt> getStatsForUser(String userAlias) {
-		return attemptRepository.findTop5ByUserAliasOrderByIdDesc(userAlias);
-	}
-	
 	@Transactional
 	@Override
 	public boolean checkAttempt(final MultiplicationResultAttempt resultAttempt) {
@@ -90,10 +90,16 @@ public class MultiplicationServiceImplementation implements MultiplicationServic
 		
 		attemptRepository.save(checkedAttempt);
 		
+		eventDispatcher.send(new MultiplicationSolvedEvent(checkedAttempt.getId(),
+				checkedAttempt.getUser().getId(),
+				checkedAttempt.isCorrect()));
+		
 		return correct;
-		
-		
-	
 	}
-
+	
+	@Override
+	public List<MultiplicationResultAttempt> getStatsForUser(String userAlias) {
+		return attemptRepository.findTop5ByUserAliasOrderByIdDesc(userAlias);
+	}
+	
 }
