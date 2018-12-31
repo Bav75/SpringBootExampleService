@@ -1,5 +1,10 @@
 package microservices.multiplication.domain;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -10,13 +15,18 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-@RequiredArgsConstructor
+@RequiredArgsConstructor 
+@Entity
 public final class Multiplication {
 	
-	// Factors for multiplication
+	@Id
+	@GeneratedValue
+	@Column(name = "MULTIPLICATION_ID")
+	private Long id;
+	
+
 	private final int factorA;
 	private final int factorB;
-	//private final int result;
 		
 	
 	public Multiplication() {

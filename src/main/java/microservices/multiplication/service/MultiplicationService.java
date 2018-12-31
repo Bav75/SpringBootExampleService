@@ -1,5 +1,7 @@
 package microservices.multiplication.service;
 
+import java.util.List;
+
 import microservices.multiplication.domain.Multiplication;
 import microservices.multiplication.domain.MultiplicationResultAttempt;
 
@@ -15,5 +17,7 @@ public interface MultiplicationService {
 	public Multiplication createRandomMultiplication();
 	
 	public boolean checkAttempt(final MultiplicationResultAttempt resultAttempt);
+	
+	public List<MultiplicationResultAttempt> getStatsForUser(final String userAlias);
 	
 }
