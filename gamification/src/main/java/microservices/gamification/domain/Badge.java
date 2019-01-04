@@ -3,7 +3,7 @@ package microservices.gamification.domain;
 /**
  * 
  * @author bav
- *Enumeration with different types of Bades that a user can
+ *Enumeration with different types of Badges that a user can
  *win. 
  *
  */
