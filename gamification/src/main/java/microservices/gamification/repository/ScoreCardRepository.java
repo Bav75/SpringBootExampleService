@@ -13,7 +13,6 @@ public interface ScoreCardRepository extends CrudRepository<ScoreCard, Long>{
 	
 	@Query("SELECT SUM(s.score) FROM microservices.gamification.domain.ScoreCard s WHERE s.userId = :userId GROUP BY s.userId")
 	public int getTotalScoreForUser(@Param("userId") final Long userId);
-}
 
 	@Query("SELECT NEW microservices.gamification.domain.LeaderBoardRow(s.userId, SUM(s.score)) " + 
 			"FROM microservices.gamification.domain.ScoreCard s " + 
@@ -21,3 +20,6 @@ public interface ScoreCardRepository extends CrudRepository<ScoreCard, Long>{
 	public List<LeaderBoardRow> findFirst10();
 	
 	public List<ScoreCard> findByUserIdOrderByScoreTimestampDesc(final Long userId);
+	
+	
+}

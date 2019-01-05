@@ -9,11 +9,13 @@ import static org.mockito.BDDMockito.given;
 
 
 import java.util.List;
+import java.util.Optional;
 
 import org.assertj.core.util.Lists;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.json.JacksonTester;
@@ -31,6 +33,8 @@ import microservices.multiplication.controller.MultiplicationResultAttemptContro
 import microservices.multiplication.domain.Multiplication;
 import microservices.multiplication.domain.MultiplicationResultAttempt;
 import microservices.multiplication.domain.User;
+import microservices.multiplication.event.MultiplicationSolvedEvent;
+import microservices.multiplication.repository.MultiplicationResultAttemptRepository;
 import microservices.multiplication.service.MultiplicationService;
 
 
@@ -40,6 +44,9 @@ public class MultiplicationResultAttemptControllerTest {
 	
 	@MockBean
 	private MultiplicationService multiplicationService;
+	
+	@Mock
+	private MultiplicationResultAttemptRepository multiplicationResultAttemptRepository;
 	
 	@Autowired
 	private MockMvc mvc;
@@ -81,6 +88,28 @@ public class MultiplicationResultAttemptControllerTest {
 		genericParameterizedTest(false);
 	}
 	
+	@Test
+	public void getResultByIdTest() throws Exception {
+		// given		
+		
+		// model the user, the multiplication, and the attempt 
+		User user = new User("john_doe");
+		Multiplication multiplication = new Multiplication(50, 70);
+		MultiplicationResultAttempt attempt = new MultiplicationResultAttempt(user, multiplication, 3500, true);
+		
+		// this is the test to the method 
+		given(multiplicationService.getResultById(4L)).willReturn((attempt));
+		
+		// when 
+		MockHttpServletResponse response = mvc.perform(get("/results/4")).andReturn().getResponse();
+	
+		// then 
+		
+		assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
+		assertThat(response.getContentAsString()).isEqualTo(jsonResult.write(attempt).getJson());
+		
+	}
+	
 	public void genericParameterizedTest(final boolean correct) throws Exception {
 		
 		// given
@@ -110,5 +139,9 @@ public class MultiplicationResultAttemptControllerTest {
 								attempt.getResultAttempt(), correct)).getJson());
 		
 	}
+	
+	
+	// model the event off of the above info from the attempt 
+	// MultiplicationSolvedEvent event = new MultiplicationSolvedEvent(attempt.getId(), attempt.getUser().getId(), attempt.isCorrect());
 	
 }

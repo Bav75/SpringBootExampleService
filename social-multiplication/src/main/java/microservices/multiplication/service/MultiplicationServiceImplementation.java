@@ -24,7 +24,6 @@ public class MultiplicationServiceImplementation implements MultiplicationServic
 	private MultiplicationResultAttemptRepository attemptRepository;
 	private UserRepository userRepository;  
 	private EventDispatcher eventDispatcher;
-	//private MultiplicationRepository multiplicationRepository; 
 	
 	@Autowired
 	public MultiplicationServiceImplementation(final RandomGeneratorService randomGeneratorService,
@@ -34,7 +33,6 @@ public class MultiplicationServiceImplementation implements MultiplicationServic
 		this.attemptRepository = attemptRepository;
 		this.userRepository = userRepository;
 		this.eventDispatcher = eventDispatcher;
-		//this.multiplicationRepository = multiplicationRepository;
 	}
 	
 	
@@ -42,35 +40,7 @@ public class MultiplicationServiceImplementation implements MultiplicationServic
 	public Multiplication createRandomMultiplication() {
 		int factorA = randomGeneratorService.generateRandomFactor();
 		int factorB = randomGeneratorService.generateRandomFactor();
-		return new Multiplication(factorA, factorB);
-		
-		/*
-		
-		try {
-			Multiplication calculatedMultiplication = multiplicationRepository.findByFactors(factorA, factorB);
-			return calculatedMultiplication;
-		} 
-		
-		catch (NullPointerException e) {
-			return new Multiplication(factorA, factorB);
-		}
-		
-		*/
-		
-		/* Multiplication multiplication = Optional.of(multiplicationRepository.findByFactors(factorA, factorB)).orElseGet(() -> new 
-				Multiplication(factorA, factorB)); 
-		try {
-			Multiplication calculatedMultiplication = multiplicationRepository.findByFactors(factorA, factorB);
-			return calculatedMultiplication;
-		} 
-		
-		catch (NullPointerException e) {
-			Multiplication newMultiplication = new Multiplication(factorA, factorB);
-			return newMultiplication;
-		}
-		
-		*/
-		
+		return new Multiplication(factorA, factorB);	
 	}
 	
 	@Transactional
@@ -102,4 +72,10 @@ public class MultiplicationServiceImplementation implements MultiplicationServic
 		return attemptRepository.findTop5ByUserAliasOrderByIdDesc(userAlias);
 	}
 	
+	@Override
+	public MultiplicationResultAttempt getResultById(final Long resultAttemptId) {
+		return attemptRepository.findById(resultAttemptId).orElse(null);
+	}
+	
 }
+	

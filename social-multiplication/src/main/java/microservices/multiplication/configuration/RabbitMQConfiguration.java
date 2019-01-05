@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.rabbitmq.client.ConnectionFactory;
+import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 
 /*
  * Configures Rabbit MQ.
